@@ -14,7 +14,16 @@ with open('xgb_cv3.sav', 'rb') as to_read:
 def predict_result(image):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     glcm = graycomatrix(gray_image, [1], [0], 256, symmetric=True, normed=True)
-    test =  pd.DataFrame({"variance":[np.var(gray_image)],"std":[np.std(gray_image)],'mean':[np.mean(gray_image)],'contrast':[graycoprops(glcm, 'contrast')[0, 0]],'correlation':[graycoprops(glcm, 'correlation')[0, 0]],'energy':[graycoprops(glcm, 'energy')[0, 0]],'homogeneity':[graycoprops(glcm, 'homogeneity')[0, 0]],'entropy':[shannon_entropy(gray_image)]})
+    test =  pd.DataFrame({
+        "variance":[np.var(gray_image)],
+        "std":[np.std(gray_image)],
+        'mean':[np.mean(gray_image)],
+        'contrast':[graycoprops(glcm, 'contrast')[0, 0]],
+        'correlation':[graycoprops(glcm, 'correlation')[0, 0]],
+        'energy':[graycoprops(glcm, 'energy')[0, 0]],
+        'homogeneity':[graycoprops(glcm, 'homogeneity')[0, 0]],
+        'entropy':[shannon_entropy(gray_image)]}
+    )
     result = xgb_opt.predict(test)
     return result
 
