@@ -22,8 +22,8 @@ def predict_result(image):
         'correlation':[graycoprops(glcm, 'correlation')[0, 0]],
         'energy':[graycoprops(glcm, 'energy')[0, 0]],
         'homogeneity':[graycoprops(glcm, 'homogeneity')[0, 0]],
-        'entropy':[shannon_entropy(gray_image)]}
-    )
+        'entropy':[shannon_entropy(gray_image)]
+    })
     result = xgb_opt.predict(test)
     return result
 
